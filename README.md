@@ -16,3 +16,8 @@ Ti-59 (Z=22, N=37) (unstable) b-: T_12 = 0.0285 ± 0.0019s, br = 100.0 ± 0.0% b
 - [ ] Implement proper decay classes (also delayed decays)
 - [ ] Write better tests (with test.db and test cases)
 - [ ] Documentation
+- [ ] Test endge cases
+- [ ] implement extrapolation flag in database
+- [ ] what to do with isomers
+- [ ] add atomic mass (and beta-decay energy) from mass16round.txt
+- [ ] organize database / utils
