@@ -15,10 +15,13 @@ from nuclides.nuclide import Nuclide
 #    print(nuc.stable)
 import sqlalchemy as db
 
+from nuclides.element import Element
 
+Ti = Element('Ti')
+print(Ti[46])
+print(Ti[59])
 
-
-Ti = Element("V")
-
-for nuc in Ti:
+Au = Element('Au')
+for nuc in Au:
     print(nuc)
+
