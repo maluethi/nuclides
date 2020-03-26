@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import re
+from math import log
 
 neutron = 1
 proton = 1
@@ -15,6 +16,9 @@ class Decay:
     half_life: float = None
     half_life_error: float = None
     half_life_rel: str = None
+
+    lmda: float = None
+    lmda_error: float = None
 
     branching_ratio: float = None
     branching_ratio_error: float = None
@@ -35,6 +39,9 @@ class Decay:
 
         if self.half_life <= 0:
             raise ValueError("Half-Life must be larger than 0 seconds")
+
+        self.lmda = log(2) / self.half_life if self.half_life is not None else None
+        self.lmda_error = log(2) / self.half_life_error if self.half_life_error is not None else None
 
     def __str__(self):
         return f'{self.name}: T_12 {self.half_life_rel} {self.half_life} \u00B1 {self.half_life_error}s, ' \
