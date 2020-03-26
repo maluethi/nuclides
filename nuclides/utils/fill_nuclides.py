@@ -103,7 +103,6 @@ def parse_half_life(half_life):
            or empty string
            returns dict {half life, unit, uncertainty, extrapolated}
         """
-    print('IN', half_life)
     result = {}
     half_life = half_life.strip()
     result['extrapolated'] = True if half_life.count('#') > 0 else False
@@ -119,7 +118,6 @@ def parse_half_life(half_life):
         return result
 
     items = half_life.split()
-    print('items', items)
 
     for it in items:
         it = it.strip()
@@ -144,7 +142,6 @@ def parse_half_life(half_life):
         else:
             splt = re.split('[0-9]*\.?[0-9]+', items[2])
             num = re.search('[0-9]*\.?[0-9]+', items[2])
-            print(splt, num)
 
             if len(splt) > 2:
                result['uncertainty'] = num[0] * short_time_units[splt[-1]]
@@ -392,7 +389,6 @@ for idx, line in enumerate(args.infile):
         session.commit()
 
     else:
-        print(name, A, N, Z, half_life,  decay_modes, )
         stable = False
 
         mass_def = mass_defect['value']
@@ -422,8 +418,10 @@ for idx, line in enumerate(args.infile):
             continue
         if 'y' in hlf_unit and 'ys' not in hlf_unit:
             hlf = float(hlf_val) * long_time_units[hlf_unit]
+            hlf_unc = float(hlf_unc) * long_time_units[hlf_unit] if hlf_unc else None
         else:
             hlf = float(hlf_val) * short_time_units[hlf_unit]
+            hlf_unc = float(hlf_unc) * short_time_units[hlf_unit] if hlf_unc else None
 
         for dec in decay_modes:
             mode = check_unknown(dec['mode'])
@@ -433,8 +431,7 @@ for idx, line in enumerate(args.infile):
 
             if br_ratio is not None:
                 if '#' in br_ratio:
-                    print(name, A, N, Z, half_life, decay_modes, )
-
+                    pass
             new_decay = Decays(decay_mode=mode,
                                branching=br_ratio,
                                branching_error=br_unc,
