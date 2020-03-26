@@ -37,9 +37,8 @@ class Decay:
             raise ValueError("Half-Life must be larger than 0 seconds")
 
     def __str__(self):
-        return f'{self.name}: T_12{self.half_life_rel}{self.half_life} +/- {self.half_life_error}s, ' \
-               f'br{self.branching_ratio_rel}{self.branching_ratio} +/- {self.branching_ratio_error}%'
-
+        return f'{self.name}: T_12 {self.half_life_rel} {self.half_life} \u00B1 {self.half_life_error}s, ' \
+               f'br {self.branching_ratio_rel} {self.branching_ratio} \u00B1 {self.branching_ratio_error}%'
 
 
 @dataclass

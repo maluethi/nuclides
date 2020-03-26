@@ -51,8 +51,8 @@ class Nuclide:
     def __repr__(self):
         if self.stable:
             string = f'{self.name} (Z={self.Z}, N={self.N}) (stable)' \
-                  f' abundance: {self.abundance} +/- {self.abundance_error} %' \
-                  #f' mass_def:  {self.mass_defect} +/- {self.mass_defect_error} keV'
+                  f' abundance: {self.abundance} \u00B1 {self.abundance_error} %' \
+                  #f' mass_def:  {self.mass_defect} \u00B1 {self.mass_defect_error} keV'
 
         else:
             string = f'{self.name} (Z={self.Z}, N={self.N}) (unstable)'
