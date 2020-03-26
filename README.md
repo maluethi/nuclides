@@ -1,5 +1,5 @@
 
-```python
+```
 >>> from nuclides.element import Element
 >>> Ti = Element('Ti)
 >>> print(Ti[44], Ti[59])
