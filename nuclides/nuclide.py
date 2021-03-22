@@ -10,7 +10,7 @@ metadata = db.MetaData()
 decay_table = db.Table('decays', metadata, autoload=True, autoload_with=engine)
 
 @dataclass
-class Isotope:
+class Nuclide:
     name: str
     Z: int
     N: int

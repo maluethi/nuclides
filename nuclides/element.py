@@ -1,5 +1,5 @@
 
-from .isotope import Isotope
+from .nuclide import Nuclide
 from dataclasses import dataclass
 from typing import List
 
@@ -60,7 +60,7 @@ class Element:
 
         nuclides = []
         for nuc in nuc_data:
-            nuclides.append(Isotope(name=self.name, Z=self.Z, N=nuc[2],
+            nuclides.append(Nuclide(name=self.name, Z=self.Z, N=nuc[2],
                                     mass_defect=nuc[5], mass_defect_error=nuc[6],
                                     stable=nuc[7],
                                     abundance=nuc[8], abundance_error=nuc[9],
