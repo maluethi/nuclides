@@ -13,6 +13,31 @@ decay_table = db.Table('decays', metadata, autoload=True, autoload_with=engine)
 
 
 class Nuclide:
+    """
+        A Class to represent a nuclide.
+
+        Attributes:
+            name: name of the associate element
+            Z: number of protons
+            N: number of neutrons
+            A: Z + N
+
+            mass: mass of the nuclide
+            mass_error: uncertainty on the mass
+            mass_excess: energy excess over the mass number (A) in keV
+            mass_excess_error: uncertainty on the mass excess
+
+            stable: wether the nuclide is stable or not
+            abundance: natural occurence of the nuclide (only applicable if stable or long-lived)
+            abundance_error: uncertainty on the abundance
+
+            decays: List of associate decays
+
+            _nuc_id: key in database
+
+   """
+
+
     def __init__(self, *args, **kwargs):
         ''' Nuclide('Ti-48'), Nuclide('Ti48')  or
             Nuclide(Z=20, N=20) or Nuclide(name=Ti, N=48)
