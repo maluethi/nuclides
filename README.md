@@ -2,18 +2,17 @@
 ```
 >>> from nuclides.element import Element
 >>> Ti = Element('Ti)
->>> print(Ti[46], Ti[59])
+>>> print(Ti[46])
 
 Ti-46 (Z=22, N=24) (stable) abundance: 8.25 ± 0.03 %
-Ti-59 (Z=22, N=37) (unstable) b-: T_12 = 0.0285 ± 0.0019s, br = 100.0 ± 0.0% b-n: T_12 = 0.0285 ± 0.0019s, br = 0.3 ± 0.0% b-2n: T_12 = 0.0285 ± 0.0019s, br = 0.01 ± 0.0%
 
->>> decays = Ti[60].decays
+>>> decays = Ti[59].decays
 >>> for dec in decays:
         print(dec)
 
-b-: T_12 = 0.0222 ± 0.0016s, br = 100.0 ± 0.0%
-b-n: T_12 = 0.0222 ± 0.0016s, br = 2.0 ± 0.0%
-b-2n: T_12 = 0.0222 ± 0.0016s, br = 0.0 ± 0.0%
+b-: T_12 = 0.0285 ± 0.0019s, br = 100.0 ± 0.0%
+b-n: T_12 = 0.0285 ± 0.0019s, br = 0.3 ± 0.0%
+b-2n: T_12 = 0.0285 ± 0.0019s, br = 0.01 ± 0.0%
 
 >>> T12 = Ti[44].decays[0].half_life
 >>> BR = Ti[44].decays[0].branching_ratio
