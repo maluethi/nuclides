@@ -87,16 +87,6 @@ class Nuclide:
         self._nuc_id = attrs['_nuc_id']
         self.decays = self._fill_decays()
 
-    @classmethod
-    def _from_data(self, Z, N, **kwargs):
-        self.name = _get_name(Z)
-        if _check_N_exists(N, name=self.name):
-            self.N = N
-
-        for key, val in kwargs.items():
-            print(key, val)
-            self.__setattr__(key, val)
-
     def __repr__(self):
         if self.stable:
             string = f'{self.name} (Z={self.Z}, N={self.N}) (stable)' \
