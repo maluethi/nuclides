@@ -1,5 +1,6 @@
 
 from .nuclide import Nuclide
+from . util import _get_Z, _get_name
 from dataclasses import dataclass
 from typing import List
 
@@ -17,10 +18,10 @@ class Element:
     def __init__(self, constructor):
 
         if type(constructor) == str:
-            self.Z = self._get_Z(constructor)
+            self.Z = _get_Z(constructor)
             self.name = constructor
         elif type(constructor) == int or type(constructor) == float:
-            self.name = self._get_name(int(constructor))
+            self.name = _get_name(int(constructor))
             self.Z = int(constructor)
         else:
             raise TypeError("Unknown type of nuclide specifier")
@@ -51,40 +52,17 @@ class Element:
         else:
             raise StopIteration
 
-    def _get_name(self, Z):
-        query = db.select([elements]).where(elements.columns.Z == Z)
-        res_prox = connection.execute(query)
-        try:
-            name = res_prox.fetchall()[0][1]
-        except IndexError:
-            raise ValueError(f'Element with {Z} does not exist')
-        return name
-
-    def _get_Z(self, name):
-        query = db.select([elements]).where(elements.columns.name == name)
-        res_prox = connection.execute(query)
-        try:
-            Z = res_prox.fetchall()[0][0]
-        except IndexError:
-            raise ValueError(f'Element with {name} does not exist')
-        return Z
-
     def _get_isotopes(self, isomer=False):
-        query = db.select([nuclides_table]).where(and_(
-            nuclides_table.columns.Z == self.Z,
-            nuclides_table.columns.isomer == isomer)
-        )
+        query = db.select([elements]).where(elements.columns.Z == self.Z)
 
         res_prox = connection.execute(query)
-        nuc_data = res_prox.fetchall()
+        elem_data = res_prox.fetchall()[0]
+
+        elem_nstart = elem_data[2]
+        elem_nrange = elem_data[3]
 
         nuclides = []
-        for nuc in nuc_data:
-            nuclides.append(Nuclide(name=self.name, Z=self.Z, N=nuc[2],
-                                    mass_defect=nuc[5], mass_defect_error=nuc[6],
-                                    stable=nuc[7],
-                                    abundance=nuc[8], abundance_error=nuc[9],
-                                    decays=[],
-                                    _nuc_id=nuc[0]))
+        for N in range(elem_nstart, elem_nstart + elem_nrange):
+            nuclides.append(Nuclide(N=N, Z=self.Z))
 
         return nuclides

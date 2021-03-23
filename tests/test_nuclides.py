@@ -18,43 +18,35 @@ def response():
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
-def test_nuclide_checks(response):
-    from nuclides.nuclide import Nuclide
-    from nuclides.decays import Alpha, BetaMinus
-
-    dec1 = Alpha(10, 0.2)
-    dec2 = BetaMinus(100, 0.7)
-    dec3 = BetaMinus(1000, 0.2)
-
-    with pytest.raises(ValueError, match=r'Total*'):
-        Nuclide(name='MAL', Z=10, N=5, mass=10.1, decays=[dec3, dec2, dec1])
-
-    with pytest.raises(ValueError, match=r'Nuclide*'):
-        Nuclide(name='MAL', Z=10, N=5, mass=10.1, stable=True, decays=[dec3, dec2, dec1])
-
-    with pytest.raises(ValueError, match=r'No*'):
-        Nuclide(name='MAL', Z=10, N=5, mass=10.1, stable=False, decays=[])
-
 
 def test_nuclide_gen(response):
     from nuclides.nuclide import Nuclide
-    from nuclides.decays import Alpha, BetaMinus
 
-    dec1 = Alpha(10, 0.2)
-    dec2 = BetaMinus(100, 0.7)
-    dec3 = BetaMinus(1000, 0.1)
+    nuc = Nuclide('Ti-48')
+    assert nuc.Z == 22
+    assert nuc.N == 26
+    assert nuc.name == 'Ti'
+    assert nuc.stable == True
 
-    nuc = Nuclide(name='MAL', Z=10, N=5, mass=10.1, decays=[dec3, dec2, dec1])
+    nuc = Nuclide('Ti48')
+    assert nuc.N == 26
+    assert nuc.name == 'Ti'
 
-    assert nuc.mass_defect == 10.1
-    assert nuc.Z == 10
-    assert nuc.N == 5
-    assert nuc.name == 'MAL'
+    nuc = Nuclide('48Ti')
+    assert nuc.N == 26
+    assert nuc.name == 'Ti'
 
-    # check sorting
-    assert nuc.decays[0].half_life == 100
-    assert nuc.decays[1].half_life == 10
-    assert nuc.decays[2].half_life == 1000
+    nuc = Nuclide(name='Ti', N=28)
+    assert nuc.name == 'Ti'
+    assert nuc.N == 28
 
+    nuc = Nuclide(Z=92, N=123)
+    assert nuc.name == 'U'
+    assert nuc.Z == 92
+    assert nuc.N == 123
 
+    with pytest.raises(ValueError, match=r'does*'):
+        nuc = Nuclide(Z=92, N=92)
 
+    with pytest.raises(ValueError, match=r'exist*'):
+        nuc = Nuclide(name='U', N=92)
