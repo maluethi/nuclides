@@ -14,9 +14,17 @@ nuclides_table = db.Table('nuclides', metadata, autoload=True, autoload_with=eng
 
 
 class Element:
-    def __init__(self, name):
-        self.name = name
-        self.Z = self._get_Z()
+    def __init__(self, constructor):
+
+        if type(constructor) == str:
+            self.Z = self._get_Z(constructor)
+            self.name = constructor
+        elif type(constructor) == int or type(constructor) == float:
+            self.name = self._get_name(int(constructor))
+            self.Z = int(constructor)
+        else:
+            raise TypeError("Unknown type of nuclide specifier")
+
         self.isotopes = sorted(self._get_isotopes(), key=lambda nu: nu.N)
         self.isomers = sorted(self._get_isotopes(), key=lambda nu: nu.N)
         self._first_avail = self.isotopes[0].A
@@ -43,10 +51,22 @@ class Element:
         else:
             raise StopIteration
 
-    def _get_Z(self):
-        query = db.select([elements]).where(elements.columns.name == self.name)
+    def _get_name(self, Z):
+        query = db.select([elements]).where(elements.columns.Z == Z)
         res_prox = connection.execute(query)
-        Z = res_prox.fetchall()[0][0]
+        try:
+            name = res_prox.fetchall()[0][1]
+        except IndexError:
+            raise ValueError(f'Element with {Z} does not exist')
+        return name
+
+    def _get_Z(self, name):
+        query = db.select([elements]).where(elements.columns.name == name)
+        res_prox = connection.execute(query)
+        try:
+            Z = res_prox.fetchall()[0][0]
+        except IndexError:
+            raise ValueError(f'Element with {name} does not exist')
         return Z
 
     def _get_isotopes(self, isomer=False):
