@@ -9,6 +9,9 @@ def test_element_creation(response):
 
     Ti = Element('Ti')
     assert (Ti.name == 'Ti')
+    assert (Ti.n_nuclides == 27)
+
+    #assert (len(Ti.isomers) == 12)
 
     Ti2 = Element(Ti.Z)
     assert (Ti2.name == 'Ti')
