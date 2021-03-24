@@ -42,6 +42,7 @@ def _get_nuc_info(Z, N, isomer=False):
             'mass_defect': res[5], 'mass_defect_error': res[6],
             'stable': res[7], 'abundance': res[8], 'abundance_error': res[9], 'isomer': res[10], '_nuc_id': res[0]}
 
+
 def _get_isotopes(Z, isomer=False):
     query = db.select([_elements]).where(db.and_(_elements.columns.Z == Z,
                                                  _nuclides_table.columns.isomer == isomer))
