@@ -1,6 +1,15 @@
 ### Usage
 ```
->>> from nuclides.element import Element
+>>> from nuclides import Nuclide
+>>> Au196 = Nuclide('Au196')
+>>> print(Au196)
+Au-196 (Z=79, N=117) (unstable) b+: T_12 = 532820.16 ± 51.839999999999996s, br = 92.8 ± 8.0% b-: T_12 = 532820.16 ± 51.839999999999996s, br = 7.2 ± 8.0%
+
+>>> What =  Nuclide(Z=92, N=143)
+>>> print(What.name)
+U-235
+
+>>> from nuclides import Element
 >>> Ti = Element('Ti)
 >>> print(Ti[46])
 
