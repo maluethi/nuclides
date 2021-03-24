@@ -68,6 +68,9 @@ element_names = \
     'Rg', 'Cn', 'Nh', 'Fl', 'Mc', \
     'Lv', 'Ts', 'Og', 'Uue', 'Ubn'
 
+isomer_states = {1: 'm',
+                 2: 'n',
+                 3: ''}
 
 def parse_mass_defect(mass_defect):
     """Returns dict {value, uncertainty, extrapolated}
@@ -339,9 +342,10 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 # skip first line
-next(args.infile)
+#next(args.infile)
 
 for idx, line in enumerate(args.infile):
+    if line[0] == '#': continue
     A = int(line[0:3])
     Z = int(line[4:7])
     N = A-Z
@@ -350,12 +354,12 @@ for idx, line in enumerate(args.infile):
     print(idx, name, A, Z)
 
     isomer = False if line[7] == '0' else True
-    mass_defect = line[18:38].strip()
-    isomer_data = line[38:60].strip()
-    half_life = line[60:78].strip()
-    spin = line[79:93].strip()
+    mass_defect = line[18:41].strip()
+    isomer_data = line[42:53].strip()
+    half_life = line[69:87].strip()
+    spin = line[88:101].strip()
     comment = line[93:109].strip()
-    decay_modes = line[110:-1].strip().lower()
+    decay_modes = line[119:-1].strip().lower()
 
     mass_defect = parse_mass_defect(mass_defect)
     half_life = parse_half_life(half_life)
