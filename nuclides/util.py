@@ -1,7 +1,7 @@
 import sqlalchemy as db
+from pkg_resources import resource_filename
 
-
-_engine = db.create_engine('sqlite:///../nuclides/utils/nuclides.db')
+_engine = db.create_engine( f'sqlite:///{resource_filename(__name__, "data/nuclides.db")}')
 _connection = _engine.connect()
 _metadata = db.MetaData()
 _elements = db.Table('elements', _metadata, autoload=True, autoload_with=_engine)

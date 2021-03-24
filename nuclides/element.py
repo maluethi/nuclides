@@ -6,8 +6,9 @@ from typing import List
 
 import sqlalchemy as db
 from sqlalchemy import and_
+from pkg_resources import resource_filename
 
-engine = db.create_engine('sqlite:///../nuclides/utils/nuclides.db')
+engine = db.create_engine( f'sqlite:///{resource_filename(__name__, "data/nuclides.db")}')
 connection = engine.connect()
 metadata = db.MetaData()
 elements = db.Table('elements', metadata, autoload=True, autoload_with=engine)

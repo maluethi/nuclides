@@ -10,9 +10,9 @@ with open('README.md') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ ]
+requirements = [ 'sqlalchemy' ]
 
-setup_requirements = ['pytest-runner', ]
+setup_requirements = ['pytest-runner', 'pytest' ]
 
 test_requirements = ['pytest>=3', ]
 
@@ -39,6 +39,7 @@ setup(
     keywords='nuclides',
     name='nuclides',
     packages=find_packages(include=['nuclides', 'nuclides.*']),
+    package_data={'nuclides': ['data/nuclides.db']},
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
