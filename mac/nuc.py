@@ -22,23 +22,16 @@ from nuclides.util import _check_N_exists, _get_nuc_info
 nuc = Nuclide('Ti-48')
 print(nuc)
 
-nuc = Nuclide('Ti51')
-print(nuc)
-
-
 Ti = Element('Ti')
 print(Ti[46])
 print(Ti[59])
 
-Au = Element('Au')
-for iso in Au:
-    print(iso)
-
-Zn = Element('Zn')
-
-decays = Ti[60].decays
+decays = Ti[59].decays
 for dec in decays:
     print(dec)
+
+
+Zn = Element('Zn')
 
 T12 = Ti[44].decays[0].half_life
 BR = Ti[44].decays[0].branching_ratio
