@@ -47,9 +47,8 @@ class Nuclide:
             _A = re.findall(r'\d{1,3}', args[0], flags=re.IGNORECASE)[0]
 
             self.Z = _get_Z(_name)
-            self.name = _name
             _N = int(_A) - self.Z
-            if _check_N_exists(_N, name=self.name):
+            if _check_N_exists(_N, name=_name):
                 self.N = _N
             else:
                 raise ValueError(f'Requested nuclide does not exist, assuming A={_A}, name={_name}')
@@ -59,20 +58,20 @@ class Nuclide:
             if 'name' in kwargs:
                 _name = kwargs['name']
                 self.Z = _get_Z(_name)
-                self.name = _name
             elif 'Z' in kwargs:
                 _Z = int(kwargs['Z'])
-                self.name = _get_name(_Z)
+                _name = _get_name(_Z)
                 self.Z = _Z
 
-            if _check_N_exists(_N, name=self.name):
+            if _check_N_exists(_N, name=_name):
                 self.N = _N
-                self.A = self.N + self.Z
             else:
                 raise ValueError(f'{self.name} with neutron number N={_N} does not exist')
 
         else:
             raise ValueError("Not enough data provided for a Nuclide")
+        self.A = self.N + self.Z
+        self.name = _name + f'-{self.A}'
 
         attrs = _get_nuc_info(self.Z, self.N)
 
