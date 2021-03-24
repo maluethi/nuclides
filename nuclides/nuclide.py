@@ -1,5 +1,5 @@
 from . decays import Decay
-from . util import _get_name, _get_Z, _check_N_exists, _get_nuc_info
+from . util import _get_name, _get_Z, _check_N_exists, _get_nuc_info, get_decays
 from dataclasses import dataclass
 from typing import List
 import re
@@ -85,7 +85,7 @@ class Nuclide:
         self.abundance_error = attrs['abundance_error']
         self.isomer = attrs['isomer']
         self._nuc_id = attrs['_nuc_id']
-        self.decays = self._fill_decays()
+        self.decays = get_decays(self)
 
     def __repr__(self):
         if self.stable:
@@ -100,16 +100,3 @@ class Nuclide:
                 string += " " + str(dec)
 
         return string
-
-    def _fill_decays(self):
-        query = db.select([decay_table]).where(decay_table.columns.nuclide_id == self._nuc_id)
-        res_prox = connection.execute(query)
-        dec_data = res_prox.fetchall()
-
-        decays = []
-        for dec in dec_data:
-            decays.append(Decay(name=dec[2],
-                                branching_ratio=dec[3], branching_ratio_error=dec[4], branching_ratio_rel=dec[5],
-                                half_life=dec[6], half_life_error=dec[7], half_life_rel=dec[8]))
-
-        return decays

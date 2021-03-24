@@ -1,5 +1,6 @@
 import sqlalchemy as db
 from . import nuclide
+from . import decays
 from pkg_resources import resource_filename
 
 _engine = db.create_engine( f'sqlite:///{resource_filename(__name__, "data/nuclides.db")}')
@@ -7,6 +8,7 @@ _connection = _engine.connect()
 _metadata = db.MetaData()
 _elements = db.Table('elements', _metadata, autoload=True, autoload_with=_engine)
 _nuclides_table = db.Table('nuclides', _metadata, autoload=True, autoload_with=_engine)
+_decay_table = db.Table('decays', _metadata, autoload=True, autoload_with=_engine)
 
 
 def _get_name(Z):
@@ -55,6 +57,21 @@ def _get_isotopes(Z, isomer=False):
         nuclides.append(nuclide.Nuclide(N=N, Z=Z))
 
     return nuclides
+
+
+def get_decays(nuclide):
+    query = db.select([_decay_table]).where(_decay_table.columns.nuclide_id == nuclide._nuc_id)
+    res_prox = _connection.execute(query)
+    dec_data = res_prox.fetchall()
+
+    deca = []
+    for dec in dec_data:
+        deca.append(decays.Decay(name=dec[2],
+                                branching_ratio=dec[3], branching_ratio_error=dec[4], branching_ratio_rel=dec[5],
+                                half_life=dec[6], half_life_error=dec[7], half_life_rel=dec[8]))
+
+    return deca
+
 
 def _check_N_exists(N, **kwargs):
     if 'name' in kwargs:
