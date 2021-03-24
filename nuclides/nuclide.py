@@ -44,7 +44,7 @@ class Nuclide:
             or Nuclide(A=123, N=45) or Nuclide(A=123, Z=32)'''
         if len(args) == 1:      # Ti-48 or Ti48 ot 48Ti
             _name = re.findall(r'[a-z]{1,2}', args[0], flags=re.IGNORECASE)[0]
-            _A = re.findall(r'\d{1,2}', args[0], flags=re.IGNORECASE)[0]
+            _A = re.findall(r'\d{1,3}', args[0], flags=re.IGNORECASE)[0]
 
             self.Z = _get_Z(_name)
             self.name = _name
@@ -52,7 +52,7 @@ class Nuclide:
             if _check_N_exists(_N, name=self.name):
                 self.N = _N
             else:
-                raise ValueError('Requested nuclide does not exist')
+                raise ValueError(f'Requested nuclide does not exist, assuming A={_A}, name={_name}')
 
         elif len(kwargs) == 2:          # N=12, name='Ti' or N=12
             _N = kwargs['N']        # Neutron number must always be supplied
