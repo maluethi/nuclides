@@ -15,8 +15,8 @@ from nuclides.nuclide import Nuclide
 #    print(nuc.stable)
 import sqlalchemy as db
 
-from nuclides.element import Element
-from nuclides.nuclide import Nuclide
+from nuclides import Element
+from nuclides import Nuclide
 from nuclides.util import _check_N_exists, _get_nuc_info
 
 nuc = Nuclide('Ti-48')

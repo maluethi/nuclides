@@ -20,7 +20,7 @@ def response():
 
 
 def test_nuclide_gen(response):
-    from nuclides.nuclide import Nuclide
+    from nuclides import Nuclide
 
     nuc = Nuclide('Ti-48')
     assert nuc.Z == 22

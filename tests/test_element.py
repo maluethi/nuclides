@@ -5,7 +5,7 @@ def response():
     pass
 
 def test_element_creation(response):
-    from nuclides.element import Element
+    from nuclides import Element
 
     Ti = Element('Ti')
     assert (Ti.name == 'Ti')
