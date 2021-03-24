@@ -72,7 +72,6 @@ raw_data = np.array(sorted(raw_data, key=lambda Z: Z[0]))
 for name in element_names:
     idxs = np.where(raw_data[:, 2] == name)
     this_element = raw_data[idxs]
-    print(this_element)
     stbl = []
     if len(idxs[0]) > 0:
         idx_start = raw_data[idxs][0][1]
@@ -85,7 +84,6 @@ for name in element_names:
         # handle isomers (not relevant for elements db):
         if this_element[0][4] == True:
             np.delete(this_element, 0)
-            print('bla')
         unique_entries = np.unique(this_element[:, 1])
         idx_range = len(unique_entries)
 
