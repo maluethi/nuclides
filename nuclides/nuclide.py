@@ -66,7 +66,7 @@ class Nuclide:
             if _check_N_exists(_N, name=_name):
                 self.N = _N
             else:
-                raise ValueError(f'{self.name} with neutron number N={_N} does not exist')
+                raise ValueError(f'{_name} with neutron number N={_N} does not exist')
 
         else:
             raise ValueError("Not enough data provided for a Nuclide")
