@@ -44,3 +44,5 @@ T-44 most probable decay: half-life: 59.1s, branching ratio: 100.0
 - [ ] what to do with isomers
 - [ ] add atomic mass (and beta-decay energy) from mass16round.txt
 - [ ] organize database / utils
+- [ ] move to nubase2020
+- [ ] better decay formatting (e.g. take relation into accout)
