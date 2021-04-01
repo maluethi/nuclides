@@ -25,23 +25,23 @@ def test_nuclide_gen(response):
     nuc = Nuclide('Ti-48')
     assert nuc.Z == 22
     assert nuc.N == 26
-    assert nuc.name == 'Ti'
+    assert nuc.name == 'Ti-48'
     assert nuc.stable == True
 
     nuc = Nuclide('Ti48')
     assert nuc.N == 26
-    assert nuc.name == 'Ti'
+    assert nuc.name == 'Ti-48'
 
     nuc = Nuclide('48Ti')
     assert nuc.N == 26
-    assert nuc.name == 'Ti'
+    assert nuc.name == 'Ti-48'
 
     nuc = Nuclide(name='Ti', N=28)
-    assert nuc.name == 'Ti'
+    assert nuc.name == 'Ti-50'
     assert nuc.N == 28
 
     nuc = Nuclide(Z=92, N=123)
-    assert nuc.name == 'U'
+    assert nuc.name == 'U-215'
     assert nuc.Z == 92
     assert nuc.N == 123
 
