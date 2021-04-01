@@ -30,6 +30,13 @@ b-2n: T_12 = 0.0285 ± 0.0019s, br = 0.01 ± 0.0%
 T-44 most probable decay: half-life: 59.1s, branching ratio: 100.0
 
 ```
+### Installation
+At the moment the package is not available in any repositiory, you have to install from source:
+```
+git clone https://github.com/maluethi/nuclides.git
+cd nuclides
+pip install .
+```
 
 
 ### TODO
