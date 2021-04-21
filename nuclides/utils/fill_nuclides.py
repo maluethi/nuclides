@@ -417,8 +417,9 @@ for idx, line in enumerate(args.infile):
         if hlf_val == 'unstable' or hlf_val == '?':
             continue
         if 'y' in hlf_unit and 'ys' not in hlf_unit:
-            hlf = float(hlf_val) * long_time_units[hlf_unit]
-            hlf_unc = float(hlf_unc) * long_time_units[hlf_unit] if hlf_unc else None
+            years_to_seconds = 365 * 24 * 3600
+            hlf = float(hlf_val) * long_time_units[hlf_unit] * years_to_seconds
+            hlf_unc = float(hlf_unc) * long_time_units[hlf_unit] * years_to_seconds if hlf_unc else None
         else:
             hlf = float(hlf_val) * short_time_units[hlf_unit]
             hlf_unc = float(hlf_unc) * short_time_units[hlf_unit] if hlf_unc else None
